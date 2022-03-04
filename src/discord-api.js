@@ -1,3 +1,7 @@
+// TODO: msg emoji responses and count
+// TODO: msg replied to info
+
+
 import { stringify } from "querystring";
 import { readFile } from "fs/promises";
 import fetch from "node-fetch";
@@ -135,3 +139,22 @@ export const getAllChannelMessages = async (channel, overrides = null) => {
   console.log("finished fetching messages for %s", channel.name);
   return allChannelMessages;
 };
+
+
+// return all emoji ids for guild specified in config file
+// GET/guilds/{guild.id}/emojis
+export const getAllEmojis = async () => {
+  const guildId = config.guildId;
+  return await get(`/guilds/${guildId}/emojis`)
+    .then((emojis) => {
+      return emojis;
+    })
+    .catch((err) => {
+      console.log(err);
+      return null;
+    });
+};
+
+
+// given a message id and emoji id, return user array (i.e. length is a count)
+
