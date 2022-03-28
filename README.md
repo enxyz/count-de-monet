@@ -28,8 +28,3 @@ While iterating on the output transformation, I added a flag to skip fetching th
 ./scripts/get-genesis-messages.js --skip-fetch
 ```
 
-You can also grab recent messages from a recent channel like so:
-
-```shell
-./scripts/get-recent-messages.js --channel-id=<your-channel-id>
-```

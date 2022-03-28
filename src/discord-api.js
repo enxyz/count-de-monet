@@ -1,9 +1,10 @@
 import 'dotenv/config'
 import { stringify } from "querystring";
-import { readFile } from "fs/promises";
 import fetch from "node-fetch";
 
 const token = process.env.TOKEN;
+const guildId = process.env.GUILD_ID;
+
 
 export let requests = 0;
 export let errors = 0;
@@ -34,6 +35,29 @@ export const get = async (path, query = {}) => {
       console.log("Error:", err);
       errors++;
     });
+};
+
+export const getGuildMember = async (searchName) => {
+  // https://discord.com/developers/docs/resources/guild#search-guild-members
+  // not found example: []
+  // good result "enx#8760", "enx#"
+  // [
+  //   {
+  //     deaf: false,
+  //     hoisted_role: null,
+  //     joined_at: '2021-09-26T02:48:37.686000+00:00',
+  //     mute: false,
+  //     roles: [ '883171050437890108' ],
+  //     user: {
+  //       avatar: '4aa988a2fadbb9d4ef82ed40968e98db',
+  //       discriminator: '8760',
+  //       id: '723675866227277885',
+  //       username: 'enx'
+  //     }
+  //   }
+  // ]
+  // roles: "yc": 883171050437890108, "please mint gem": 884969667322580994;
+  return await get(`/guilds/${guildId}/members/search?query=${searchName}`)
 };
 
 export const getChannel = async (channelId) => {
